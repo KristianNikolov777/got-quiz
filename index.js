@@ -4,7 +4,7 @@ const resultsUrl = "https://proto.io/en/jobs/candidate-questions/result.json";
 let title;
 let description;
 let questionsData = [];
-let currentQuestionIndex = 0;
+let currentQuestionIndex;
 let currentQuestionData;
 let resultsData = [];
 let playerPoints;
@@ -14,8 +14,7 @@ let playerResult;
 
 //Initialize app
 (function init() {
-  playerPoints = 0;
-  totalScore = 0;
+  resetCounters();
   createStartpage();
 })();
 
@@ -132,11 +131,13 @@ function highlightAnswer(selectedAnswersElements) {
 
 function trackScore() {
   playerPoints += questionPoints;
+  return playerPoints;
 }
 
 function calculateScore() {
   const maxPoints = questionsData.reduce((acc, question) => acc + question.points, 0);
   totalScore = (playerPoints / maxPoints) * 100;
+  return totalScore;
 }
 
 function showResults() {
